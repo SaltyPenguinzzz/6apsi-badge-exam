@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './LoginPage';
-import LandingPage from './LandingPage'; // Make sure this is imported
+import LandingPage from './LandingPage';
+import Dashboard from './Dashboard'; // ✅ Import your Dashboard component
 import './App.css';
 
 function App() {
@@ -13,10 +14,13 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Login Page */}
         <Route
           path="/login"
           element={<LoginPage onLogin={handleLogin} />}
         />
+
+        {/* Landing Page - Protected */}
         <Route
           path="/landing"
           element={
@@ -27,7 +31,20 @@ function App() {
             )
           }
         />
-        {/* Optional: Redirect root to login or landing */}
+
+        {/* ✅ Dashboard Page - Protected */}
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <Dashboard />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
+        {/* Root Redirect */}
         <Route
           path="/"
           element={
