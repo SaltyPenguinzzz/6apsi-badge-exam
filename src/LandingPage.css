@@ -4,21 +4,22 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f9f9f9, #e0eaff);
+  background: #121212; /* Match App.css */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
+  color: #e0e0e0;
 }
 
 /* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
-  left: -220px; /* Hidden by default */
+  left: -220px;
   width: 200px;
   height: 100%;
-  background-color: #6c63ff;
+  background-color: #1e1e1e; /* Dark sidebar */
   padding: 60px 20px;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -27,12 +28,12 @@
 }
 
 .sidebar.open {
-  left: 0; /* Slide in */
+  left: 0;
 }
 
 .sidebar button {
-  background: white;
-  color: #6c63ff;
+  background: #2a2a2a;
+  color: #e0e0e0;
   border: none;
   border-radius: 8px;
   padding: 10px 16px;
@@ -42,30 +43,35 @@
 }
 
 .sidebar button:hover {
-  background: #e0e0ff;
+  background: #333;
 }
 
-/* Menu button (☰) */
+/* ☰ Menu button */
 .menu-button {
   position: fixed;
   top: 20px;
   left: 20px;
-  background: #6c63ff;
-  color: white;
+  background: #2a2a2a;
+  color: #e0e0e0;
   border: none;
   border-radius: 6px;
   padding: 10px 14px;
   font-size: 1.2rem;
   cursor: pointer;
   z-index: 1100;
+  transition: background 0.3s ease;
+}
+
+.menu-button:hover {
+  background: #333;
 }
 
 /* Main content box */
 .landing-box {
-  background: #ffffff;
+  background: #1e1e1e;
   padding: 50px 40px;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -77,10 +83,10 @@
 .landing-box h1 {
   font-size: 2rem;
   margin-bottom: 10px;
-  color: #333;
+  color: #f0f0f0;
 }
 
 .landing-box p {
-  color: #666;
+  color: #ccc;
   font-size: 1rem;
 }

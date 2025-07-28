@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-function ReportPage() {
-  const [users, setUsers] = useState([]);
-  const API_URL = 'https://jsonplaceholder.typicode.com/users';
-
-  useEffect(() => {
-    axios.get(API_URL).then(res => setUsers(res.data));
-  }, []);
-
+function ReportPage({ users }) {
   return (
     <div className="card">
       <h2>User Report</h2>
       <table className="styled-table">
         <thead>
-          <tr><th>ID</th><th>Name</th></tr>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+          </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+          {users.map((user, index) => (
             <tr key={user.id}>
-              <td>{user.id}</td>
+              <td>{index + 1}</td>
               <td>{user.name}</td>
             </tr>
           ))}

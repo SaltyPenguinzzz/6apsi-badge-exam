@@ -1,37 +1,49 @@
-import React from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, NavLink, Outlet } from 'react-router-dom';
 import CrudPage from './CrudPage';
 import ReportPage from './ReportPage';
+import axios from 'axios';
 import './App.css';
 
 function Dashboard() {
+  const [users, setUsers] = useState([]);
+  const API_URL = 'https://jsonplaceholder.typicode.com/users';
+
+  useEffect(() => {
+    axios.get(API_URL).then(res => setUsers(res.data));
+  }, []);
+
+  const addUser = async (name) => {
+    const res = await axios.post(API_URL, { name });
+    const newUser = { id: Date.now(), name: res.data.name };
+    setUsers(prev => [...prev, newUser]);
+  };
+
+  const updateUser = async (id, newName) => {
+    const res = await axios.put(`${API_URL}/${id}`, { name: newName });
+    setUsers(prev => prev.map(u => u.id === id ? { ...u, name: res.data.name } : u));
+  };
+
+  const deleteUser = async (id) => {
+    await axios.delete(`${API_URL}/${id}`);
+    setUsers(prev => prev.filter(u => u.id !== id));
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
       <aside className="dashboard-sidebar">
-        <NavLink to="/" className="logo">
-          Dashboard
-        </NavLink>
+        <NavLink to="/dashboard" className="logo">Dashboard</NavLink>
         <nav>
-          <NavLink to="/crud" className="nav-link">CRUD</NavLink>
-          <NavLink to="/report" className="nav-link">Report</NavLink>
+          <NavLink to="/dashboard/crud" className="nav-link">CRUD</NavLink>
+          <NavLink to="/dashboard/report" className="nav-link">Report</NavLink>
         </nav>
       </aside>
 
       {/* Main Content */}
       <div className="dashboard-main">
-        <Routes>
-          <Route path="/crud" element={<CrudPage />} />
-          <Route path="/report" element={<ReportPage />} />
-          <Route 
-            path="/" 
-            element={
-              <div className="welcome-container">
-                <h2 className="welcome">Welcome to the Dashboard</h2>
-              </div>
-            } 
-          />
-        </Routes>
+        {/* Nested routes will render here */}
+        <Outlet />
       </div>
     </div>
   );
