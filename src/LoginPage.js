@@ -9,8 +9,8 @@ function LoginPage({ onLogin }) {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    onLogin();
-    navigate('/');
+    onLogin();              // Call parent login handler
+    navigate('/landing');   // ✅ Correct route path (not filename)
   };
 
   const togglePassword = () => {

@@ -1,0 +1,28 @@
+.landing-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+}
+
+.landing-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.landing-buttons {
+  margin-top: 20px;
+}
+
+.btn-secondary {
+  padding: 10px 20px;
+  background: #888;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
