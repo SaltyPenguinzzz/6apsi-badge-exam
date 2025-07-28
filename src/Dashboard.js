@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, NavLink, Outlet } from 'react-router-dom';
-import CrudPage from './CrudPage';
-import ReportPage from './ReportPage';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
 function Dashboard() {
   const [users, setUsers] = useState([]);
   const API_URL = 'https://jsonplaceholder.typicode.com/users';
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(API_URL).then(res => setUsers(res.data));
@@ -29,6 +28,14 @@ function Dashboard() {
     setUsers(prev => prev.filter(u => u.id !== id));
   };
 
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
+  const goToLandingPage = () => {
+    navigate('/');
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -37,12 +44,21 @@ function Dashboard() {
         <nav>
           <NavLink to="/dashboard/crud" className="nav-link">CRUD</NavLink>
           <NavLink to="/dashboard/report" className="nav-link">Report</NavLink>
+
+          {/* Back to Landing Page */}
+          <button className="nav-link nav-button" onClick={goToLandingPage}>
+            ← Back to Landing
+          </button>
+
+          {/* Logout */}
+          <button className="nav-link nav-button" onClick={handleLogout}>
+            Logout
+          </button>
         </nav>
       </aside>
 
       {/* Main Content */}
       <div className="dashboard-main">
-        {/* Nested routes will render here */}
         <Outlet />
       </div>
     </div>

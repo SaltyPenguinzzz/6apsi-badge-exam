@@ -253,3 +253,35 @@ body {
 .show-password-btn:hover {
   background: #444;
 }
+
+.logout-button {
+  all: unset;
+  display: block;
+  padding: 10px 15px;
+  margin-top: 10px;
+  color: white;
+  background-color: #444;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.logout-button:hover {
+  background-color: #666;
+}
+
+.nav-button {
+  all: unset;
+  display: block;
+  padding: 10px 15px;
+  margin-top: 10px;
+  color: white;
+  background-color: #444;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.nav-button:hover {
+  background-color: #666;
+}
