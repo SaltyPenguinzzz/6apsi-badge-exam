@@ -17,8 +17,8 @@
   left: -220px;
   width: 200px;
   height: 100%;
-  background-color: #1e1e1e; /* Dark sidebar */
-  padding: 60px 20px;
+  background-color: #1e1e1e; 
+  padding: 100px 20px 20px 20px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
@@ -51,15 +51,15 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  background: #2a2a2a;
+  z-index: 1250;
+  background: #1c1c1c;
   color: #e0e0e0;
   border: none;
+  font-size: 24px;
+  padding: 10px 15px;
   border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 1.2rem;
   cursor: pointer;
-  z-index: 1100;
-  transition: background 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .menu-button:hover {
