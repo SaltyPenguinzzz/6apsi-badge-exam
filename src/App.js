@@ -5,11 +5,12 @@ import LandingPage from './LandingPage';
 import Dashboard from './Dashboard';
 import CrudPage from './CrudPage';
 import ReportPage from './ReportPage';
+import ResetPassword from './ResetPassword';
 import { supabase } from './supabaseClient';
 import './App.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [session, setSession] = useState(null);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -27,8 +28,21 @@ function App() {
     fetchUsers();
   }, []);
 
-  const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
+  useEffect(() => {
+    let isMounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (isMounted) setSession(data.session);
+    });
+    const { data } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+    });
+    return () => {
+      isMounted = false;
+      data.subscription.unsubscribe();
+    };
+  }, []);
+
+  const isLoggedIn = !!session;
 
   const addUser = async (name) => {
     const { data, error } = await supabase
@@ -72,9 +86,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/reset" element={<ResetPassword />} />
         <Route path="/landing" element={
-          isLoggedIn ? <LandingPage onLogout={handleLogout} /> : <Navigate to="/login" replace />
+          isLoggedIn ? <LandingPage /> : <Navigate to="/login" replace />
         } />
         <Route path="/dashboard" element={
           isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace />

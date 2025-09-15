@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from './supabaseClient';
 import './LandingPage.css';
 
-function LandingPage({ onLogout }) {
+function LandingPage() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
-    onLogout();
+    supabase.auth.signOut();
     navigate('/login');
   };
 
