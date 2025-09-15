@@ -6,6 +6,13 @@ import Dashboard from './Dashboard';
 import CrudPage from './CrudPage';
 import ReportPage from './ReportPage';
 import ResetPassword from './ResetPassword';
+import SignUpPage from './SignUpPage';
+import ReceiptsPage from './ReceiptsPage';
+import ChecksPage from './ChecksPage';
+import OrdersPage from './OrdersPage';
+import AssignmentsPage from './AssignmentsPage';
+import ApprovalsPage from './ApprovalsPage';
+import InvoicesPage from './InvoicesPage';
 import { supabase } from './supabaseClient';
 import './App.css';
 
@@ -87,6 +94,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/landing" element={
           isLoggedIn ? <LandingPage /> : <Navigate to="/login" replace />
@@ -101,6 +109,12 @@ function App() {
           } />
           <Route path="crud" element={<CrudPage />} />
           <Route path="report" element={<ReportPage users={users} />} />
+          <Route path="receipts" element={<ReceiptsPage />} />
+          <Route path="checks" element={<ChecksPage />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="assignments" element={<AssignmentsPage />} />
+          <Route path="approvals" element={<ApprovalsPage />} />
+          <Route path="invoices" element={<InvoicesPage />} />
         </Route>
         <Route path="/" element={<Navigate to={isLoggedIn ? "/landing" : "/login"} replace />} />
       </Routes>

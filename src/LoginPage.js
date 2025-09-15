@@ -89,9 +89,7 @@ function LoginPage() {
           <button className="btn-primary" onClick={login} disabled={loading}>
             {loading ? 'Signing in...' : 'Login'}
           </button>
-          <button className="btn-secondary" onClick={signUp} disabled={loading}>
-            Sign Up
-          </button>
+          <button className="btn-secondary" onClick={() => navigate('/signup')} disabled={loading}>Sign Up</button>
         </div>
 
         <div className="form-row" style={{ marginTop: 8 }}>

@@ -38,6 +38,24 @@ function Dashboard() {
           <NavLink to="/dashboard/report" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
             Reports & Analytics
           </NavLink>
+          <NavLink to="/dashboard/receipts" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
+            Receipts
+          </NavLink>
+          <NavLink to="/dashboard/checks" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
+            Checks
+          </NavLink>
+          <NavLink to="/dashboard/orders" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
+            Orders
+          </NavLink>
+          <NavLink to="/dashboard/assignments" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
+            Assignments
+          </NavLink>
+          <NavLink to="/dashboard/approvals" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
+            Approvals
+          </NavLink>
+          <NavLink to="/dashboard/invoices" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
+            Invoices
+          </NavLink>
         </nav>
 
         <div className="bottom-nav">
