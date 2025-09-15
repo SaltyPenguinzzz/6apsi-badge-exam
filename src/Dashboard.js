@@ -1,47 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './App.css';
 
 function Dashboard() {
-  const [users, setUsers] = useState([]);
-  const API_URL = 'https://jsonplaceholder.typicode.com/users';
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    axios.get(API_URL)
-      .then(res => setUsers(res.data))
-      .catch(error => console.error("Error fetching users:", error));
-  }, []);
-
-  const addUser = async (name) => {
-    try {
-      const res = await axios.post(API_URL, { name });
-      const newUser = { id: Date.now(), name: res.data.name };
-      setUsers(prev => [...prev, newUser]);
-    } catch (error) {
-      console.error("Error adding user:", error);
-    }
-  };
-
-  const updateUser = async (id, newName) => {
-    try {
-      const res = await axios.put(`${API_URL}/${id}`, { name: newName });
-      setUsers(prev => prev.map(u => u.id === id ? { ...u, name: res.data.name } : u));
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
-  };
-
-  const deleteUser = async (id) => {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-      setUsers(prev => prev.filter(u => u.id !== id));
-    } catch (error) {
-      console.error("Error deleting user:", error);
-    }
-  };
 
   const handleLogout = () => {
     navigate('/login');

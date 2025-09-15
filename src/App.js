@@ -5,34 +5,67 @@ import LandingPage from './LandingPage';
 import Dashboard from './Dashboard';
 import CrudPage from './CrudPage';
 import ReportPage from './ReportPage';
-import axios from 'axios';
+import { supabase } from './supabaseClient';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);
-  const API_URL = 'https://jsonplaceholder.typicode.com/users';
 
   useEffect(() => {
-    axios.get(API_URL).then(res => setUsers(res.data));
+    const fetchUsers = async () => {
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .order('id', { ascending: true });
+      if (error) {
+        console.error('Error fetching users:', error);
+        return;
+      }
+      setUsers(data || []);
+    };
+    fetchUsers();
   }, []);
 
   const handleLogin = () => setIsLoggedIn(true);
   const handleLogout = () => setIsLoggedIn(false);
 
   const addUser = async (name) => {
-    const res = await axios.post(API_URL, { name });
-    const newUser = { id: Date.now(), name: res.data.name };
-    setUsers(prev => [...prev, newUser]);
+    const { data, error } = await supabase
+      .from('users')
+      .insert([{ name }])
+      .select()
+      .single();
+    if (error) {
+      console.error('Error adding user:', error);
+      return;
+    }
+    setUsers(prev => [...prev, data]);
   };
 
   const updateUser = async (id, newName) => {
-    const res = await axios.put(`${API_URL}/${id}`, { name: newName });
-    setUsers(prev => prev.map(u => u.id === id ? { ...u, name: res.data.name } : u));
+    const { data, error } = await supabase
+      .from('users')
+      .update({ name: newName })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) {
+      console.error('Error updating user:', error);
+      return;
+    }
+    setUsers(prev => prev.map(u => (u.id === id ? { ...u, name: data.name } : u)));
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
+    const { error } = await supabase
+      .from('users')
+      .delete()
+      .eq('id', id);
+    if (error) {
+      console.error('Error deleting user:', error);
+      return;
+    }
     setUsers(prev => prev.filter(u => u.id !== id));
   };
 
@@ -51,14 +84,7 @@ function App() {
               <h2 className="welcome">Welcome to the Dashboard</h2>
             </div>
           } />
-          <Route path="crud" element={
-            <CrudPage
-              users={users}
-              addUser={addUser}
-              updateUser={updateUser}
-              deleteUser={deleteUser}
-            />
-          } />
+          <Route path="crud" element={<CrudPage />} />
           <Route path="report" element={<ReportPage users={users} />} />
         </Route>
         <Route path="/" element={<Navigate to={isLoggedIn ? "/landing" : "/login"} replace />} />
