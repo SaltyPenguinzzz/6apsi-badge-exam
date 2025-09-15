@@ -68,3 +68,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Quick Start
+
+- Install Node.js 18 or newer.
+- Install dependencies and run the app:
+
+```bash
+npm install
+npm start
+```
+
+### Environment variables
+Create a file named `.env.local` in the project root with your Supabase credentials:
+
+```
+REACT_APP_SUPABASE_URL=YOUR_URL
+REACT_APP_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+```
+
+Restart `npm start` after editing env vars.
+
+### Troubleshooting
+- If you see "Can't resolve '@supabase/supabase-js'": run `npm install`.
+- If env vars don’t load, ensure the file is named `.env.local` and restart the dev server.
+- On a fresh clone: delete `node_modules` if present and run `npm install` again.
